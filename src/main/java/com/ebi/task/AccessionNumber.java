@@ -56,7 +56,7 @@ class AccessionNumber implements Comparable<AccessionNumber> {
 		Pattern pattern = Pattern.compile("[A-Z]+\\d+");
 		Matcher matcher = pattern.matcher(value.trim());
 		if (!matcher.matches()) {
-			//errors.add(value);
+			return null;
 		}
 		char[] chars = value.toCharArray();
 		String prefix = "";

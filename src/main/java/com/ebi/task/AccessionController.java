@@ -54,11 +54,9 @@ public class AccessionController {
 			AccessionNumber accNumber = AccessionNumber.constructAccessionNumber(item);
 			AccessionNumberRange anr = accessionNumberLoader.deleteAccessionNumber(accNumber);
 			if (anr != null)
-				a.add(ResponseEntity.noContent()
-									.build());
+				a.add(ResponseEntity.noContent().build());
 			else
-				a.add(ResponseEntity.notFound()
-									.build());
+				a.add(ResponseEntity.notFound().build());
 		}
 		return a;
 	}
@@ -69,13 +67,14 @@ public class AccessionController {
 		ArrayList<String> groups = suffixGroups.getSuffixGroups();
 		for (String item : groups) {
 			AccessionNumber accNumber = AccessionNumber.constructAccessionNumber(item);
+			if (accNumber == null) {
+				a.add(ResponseEntity.unprocessableEntity().build());
+				continue;
+			}
 			AccessionNumberRange anr = accessionNumberLoader.updateAccessionNumber(accNumber);
-			URI anrUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-													.path("/accessionNumberRanges/{id}")
-													.buildAndExpand(anr.getId())
-													.toUri();
-			a.add(ResponseEntity.created(anrUri)
-								.build());
+			URI anrUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/accessionNumberRanges/{id}")
+					.buildAndExpand(anr.getId()).toUri();
+			a.add(ResponseEntity.created(anrUri).build());
 		}
 		return a;
 	}
