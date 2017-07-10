@@ -36,8 +36,6 @@ class AccessionNumberRange {
 
 	private TreeSet<String> suffixGroups;
 
-	private static ArrayList<String> errors = new ArrayList<>();
-
 	AccessionNumberRange() {
 
 	}

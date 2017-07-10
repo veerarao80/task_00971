@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class EbiApplicationTests {
+public class EbiApplicationIntegrationTests {
 
 	@Autowired
 	public AccessionNumberRange accessionNumberRange;
