@@ -1,4 +1,4 @@
-# task_00971
+# Task_00971
 
 run the server by running the following command in path c:\...\ebi\pom.xml path.
 
