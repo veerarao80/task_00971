@@ -20,7 +20,7 @@ post / delete can be done by pressing the **yellow button** and entering the det
   "suffixGroups":["A0001","A0004","A0005"]
 }
 
-or curl -X POST -H 'application/hal+json;charset=UTF-8' -d '{ "suffixGroups":["A0001","A0004","A0005"] }' http://localhost:8080/accessionNumberRanges
+or through REST shell or curl -X POST -H 'application/hal+json;charset=UTF-8' -d '{ "suffixGroups":["A0001","A0004","A0005"] }' http://localhost:8080/accessionNumberRanges
 
 
 ![post screen](https://github.com/veerarao80/task_00971/blob/master/images/post_or_delete.png)
