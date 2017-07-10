@@ -4,7 +4,7 @@ run the server by running the following command in path c:\...\ebi\pom.xml path.
 
 mvn spring-boot:run 
 
-On running the application server initial accession numbers are loaded and grouped and can be accessed from http://localhost:8080 url, if the 8080 port is occupied please check for the logs to find out the port on which the server is running.
+On running the application server initial accession numbers are loaded and grouped and can be accessed from http://localhost:8080 url.
 
 http://localhost:8080/accessionNumberRanges in Explorer text box or pressing the **green button** to view all the acession groups / categories.
 
