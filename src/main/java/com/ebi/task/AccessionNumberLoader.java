@@ -24,25 +24,22 @@ public class AccessionNumberLoader {
 		this.accessionNumberRepository = accessionNumberRepository;
 	}
 
+	public void update(String accessionNumbers) {
+		Arrays.asList(accessionNumbers.split(",")).stream().forEach((value -> {
+			AccessionNumber accNumber = AccessionNumber.constructAccessionNumber(value);
+			AccessionNumberRange accNumberRange = accessionNumberRanges.putIfAbsent(accNumber,
+					new AccessionNumberRange(accNumber));
+			if (accNumberRange != null)
+				accNumberRange.addSuffix(accNumber.suffix);
+		}));
+		accessionNumberRanges.values().stream().forEach(value -> value.generateSuffixGroups());
+		StreamSupport.stream(accessionNumberRepository.save(accessionNumberRanges.values()).spliterator(), false);
+	}
+
 	@PostConstruct
 	public void init() {
 		String accessionNumbers = "A00000, A0001, ERR000111, ERR000112, ERR000113, ERR000115, ERR000116, ERR100114, ERR200000001, ERR200000002, ERR200000003, DRR2110012, SRR211001, ABCDEFG1";
-		Arrays	.asList(accessionNumbers.split(","))
-				.stream()
-				.forEach((value ->
-		{
-					AccessionNumber accNumber = AccessionNumber.constructAccessionNumber(value);
-					AccessionNumberRange accNumberRange = accessionNumberRanges.putIfAbsent(accNumber,
-							new AccessionNumberRange(accNumber));
-					if (accNumberRange != null)
-						accNumberRange.addSuffix(accNumber.suffix);
-				}));
-		accessionNumberRanges	.values()
-								.stream()
-								.forEach(value -> value.generateSuffixGroups());
-		StreamSupport.stream(accessionNumberRepository	.save(accessionNumberRanges.values())
-														.spliterator(),
-				false);
+		//update(accessionNumbers);
 	}
 
 	public AccessionNumberRange updateAccessionNumber(AccessionNumber accNumber) {
@@ -63,8 +60,7 @@ public class AccessionNumberLoader {
 			return null;
 		}
 		accNumberRange.removeSuffix(accNumber.getSuffix());
-		int suffixCount = accNumberRange.getSuffixes()
-										.size();
+		int suffixCount = accNumberRange.getSuffixes().size();
 		accNumberRange.generateSuffixGroups();
 		if (suffixCount > 1)
 			accessionNumberRepository.save(accNumberRange);

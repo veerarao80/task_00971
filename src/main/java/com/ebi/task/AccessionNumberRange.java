@@ -77,19 +77,22 @@ class AccessionNumberRange {
 						rangeStartString = previousString;
 					}
 					previousString = str;
-					if (elementCount == suffixes.size()) {
+					if (elementCount == suffixes.size() - 1) {
 						suffixGroups.add(prefix + rangeStartString + "-" + prefix + previousString);
 					}
 				} else if (rangeBool) {
 					suffixGroups.add(prefix + rangeStartString + "-" + prefix + previousString);
 					rangeBool = false;
 					previousString = str;
-					if (elementCount == suffixes.size()) {
+					if (elementCount == suffixes.size() - 1) {
 						suffixGroups.add(prefix + str);
 					}
 				} else {
 					suffixGroups.add(prefix + previousString);
 					previousString = str;
+					if (elementCount == suffixes.size() - 1) {
+						suffixGroups.add(prefix + str);
+					}
 				}
 			}
 		}
