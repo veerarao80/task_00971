@@ -1,10 +1,10 @@
 # task_00971
 
-run the server by running the following command 
+run the server by running the following command in path c:\...\ebi\pom.xml path.
 
 mvn spring-boot:run 
 
-in path c:\...\ebi\pom.xml path.
+
 
 http://localhost:8080/accessionNumberRanges in Explorer text box or pressing the green button to view all the acession groups / categories.
 
