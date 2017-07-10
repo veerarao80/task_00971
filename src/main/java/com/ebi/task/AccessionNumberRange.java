@@ -26,7 +26,7 @@ class AccessionNumberRange {
 
 	private String prefix;
 
-	private TreeSet<String> suffixGroups;
+	private TreeSet<String> suffixGroups = new TreeSet<>();
 
 	AccessionNumberRange() {
 
@@ -59,13 +59,13 @@ class AccessionNumberRange {
 		previousString = "";
 		rangeStartString = "";
 		rangeBool = false;
-		TreeSet<String> sortedSet = new TreeSet<>();
 		String[] suffixesArray = suffixes.toArray(new String[suffixes.size()]);
+		suffixGroups.clear();
 		for (int elementCount = 0; elementCount < suffixes.size(); elementCount++) {
 			String str = suffixesArray[elementCount];
 			if (elementCount == 0) {
 				if (suffixes.size() == 1) {
-					sortedSet.add(prefix + str);
+					suffixGroups.add(prefix + str);
 				}
 				previousString = str;
 			} else {
@@ -78,17 +78,17 @@ class AccessionNumberRange {
 					}
 					previousString = str;
 					if (elementCount == suffixes.size()) {
-						sortedSet.add(prefix + rangeStartString + "-" + prefix + previousString);
+						suffixGroups.add(prefix + rangeStartString + "-" + prefix + previousString);
 					}
 				} else if (rangeBool) {
-					sortedSet.add(prefix + rangeStartString + "-" + prefix + previousString);
+					suffixGroups.add(prefix + rangeStartString + "-" + prefix + previousString);
 					rangeBool = false;
 					previousString = str;
 					if (elementCount == suffixes.size()) {
-						sortedSet.add(prefix + str);
+						suffixGroups.add(prefix + str);
 					}
 				} else {
-					sortedSet.add(prefix + previousString);
+					suffixGroups.add(prefix + previousString);
 					previousString = str;
 				}
 			}
