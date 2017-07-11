@@ -27,6 +27,9 @@ public class AccessionNumberLoader {
 	public void update(String accessionNumbers) {
 		Arrays.asList(accessionNumbers.split(",")).stream().forEach((value -> {
 			AccessionNumber accNumber = AccessionNumber.constructAccessionNumber(value);
+			if (accNumber == null) {
+				return;
+			}
 			AccessionNumberRange accNumberRange = accessionNumberRanges.putIfAbsent(accNumber,
 					new AccessionNumberRange(accNumber));
 			if (accNumberRange != null)

@@ -66,10 +66,14 @@ public class AccessionNumberRangeTests {
 		map.put("A0,A1,A2,A4,A5,A6", "A0-A2,A4-A6");
 		map.put("A0,A1,A2,A3,A4,A6", "A0-A4,A6");
 		map.put("A0,A1,A3,A4,A5,A7", "A0-A1,A3-A5,A7");
+		//map.put("0A", "");
+		//map.put("0A,A0", "");
 		for (String key : map.keySet()) {
 			String[] output = accessServiceUsingRestTemplate();
 			accessionNumberLoader.update(key);
-			AccessionNumber anr = AccessionNumber.constructAccessionNumber("A0");
+			AccessionNumber anr = AccessionNumber.constructAccessionNumber(key);
+			if (anr == null)
+				continue;
 			TreeSet<String> ts = accessionNumberLoader.getAccessionNumberRanges().get(anr).getSuffixGroups();
 			output = ts.toArray(new String[ts.size()]);
 			String value = map.get(key);

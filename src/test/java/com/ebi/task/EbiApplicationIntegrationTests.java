@@ -1,8 +1,5 @@
 package com.ebi.task;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -89,10 +86,6 @@ public class EbiApplicationIntegrationTests {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		AccessionNumber an = AccessionNumber.constructAccessionNumber("A00002");
 		HttpEntity<AccessionNumber> entity = new HttpEntity<>(an, headers);
-		/*
-		 * RequestEntity<Void> request = RequestEntity .get(uri)
-		 * .accept(MediaTypes.HAL_JSON) .build();
-		 */
 		Object response = restTemplate.exchange(uri, HttpMethod.POST, entity, Object.class);
 		System.out.println(response);
 		accessServiceUsingRestTemplate();
