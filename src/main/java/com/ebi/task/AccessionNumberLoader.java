@@ -63,7 +63,7 @@ public class AccessionNumberLoader {
 		accNumberRange.removeSuffix(accNumber.getSuffix());
 		int suffixCount = accNumberRange.getSuffixes().size();
 		accNumberRange.generateSuffixGroups();
-		if (suffixCount > 1)
+		if (suffixCount >= 1)
 			accessionNumberRepository.save(accNumberRange);
 		else {
 			accessionNumberRanges.remove(accNumber);
