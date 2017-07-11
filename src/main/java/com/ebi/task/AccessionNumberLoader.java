@@ -14,9 +14,6 @@ public class AccessionNumberLoader {
 
 	private final AccessionNumberRepository accessionNumberRepository;
 
-	@Autowired
-	public AccessionNumberRange accessionNumberRange;
-
 	public ConcurrentSkipListMap<AccessionNumber, AccessionNumberRange> accessionNumberRanges = new ConcurrentSkipListMap<>();
 
 	@Autowired
@@ -24,7 +21,7 @@ public class AccessionNumberLoader {
 		this.accessionNumberRepository = accessionNumberRepository;
 	}
 
-	public void update(String accessionNumbers) {
+	public void updateAccessionNumbers(String accessionNumbers) {
 		Arrays.asList(accessionNumbers.split(",")).stream().forEach((value -> {
 			AccessionNumber accNumber = AccessionNumber.constructAccessionNumber(value);
 			if (accNumber == null) {
@@ -42,13 +39,14 @@ public class AccessionNumberLoader {
 	@PostConstruct
 	public void init() {
 		String accessionNumbers = "A00000, A0001, ERR000111, ERR000112, ERR000113, ERR000115, ERR000116, ERR100114, ERR200000001, ERR200000002, ERR200000003, DRR2110012, SRR211001, ABCDEFG1";
-		update(accessionNumbers);
+		updateAccessionNumbers(accessionNumbers);
 	}
 
 	public AccessionNumberRange updateAccessionNumber(AccessionNumber accNumber) {
 		AccessionNumberRange accNumberRange = accessionNumberRanges.get(accNumber);
-		if (accessionNumberRange == null) {
+		if (accNumberRange == null) {
 			accessionNumberRanges.put(accNumber, new AccessionNumberRange(accNumber));
+			accNumberRange = accessionNumberRanges.get(accNumber);
 			accNumberRange.addSuffix(accNumber.suffix);
 		}
 		accNumberRange.addSuffix(accNumber.getSuffix());

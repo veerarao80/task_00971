@@ -70,7 +70,7 @@ public class AccessionNumberRangeTests {
 		//map.put("0A,A0", "");
 		for (String key : map.keySet()) {
 			String[] output = accessServiceUsingRestTemplate();
-			accessionNumberLoader.update(key);
+			accessionNumberLoader.updateAccessionNumbers(key);
 			AccessionNumber anr = AccessionNumber.constructAccessionNumber(key);
 			if (anr == null)
 				continue;
