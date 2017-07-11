@@ -14,7 +14,7 @@ Press **Green button** in the above to get the accession groups as seen in the s
 
 ![first screen accession Groups](https://github.com/veerarao80/task_00971/blob/master/images/accessionGroups.png)
 
-json accession groups can be accessed from http://localhost:8080/accessionGroups
+**json accession groups** can be accessed from http://localhost:8080/accessionGroups
 
 ![json result for accession groups](https://github.com/veerarao80/task_00971/blob/master/images/accessionGroup_results.png)
 
