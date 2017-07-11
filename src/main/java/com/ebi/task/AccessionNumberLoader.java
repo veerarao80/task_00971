@@ -67,15 +67,17 @@ public class AccessionNumberLoader {
 		else {
 			accessionNumberRanges.remove(accNumber);
 			accessionNumberRepository.delete(accNumberRange);
+			accNumberRange = null;
 		}
 		return accNumberRange;
 	}
 
 	public void updateAccessionNumber(String accString) {
 		AccessionNumber accNumber = AccessionNumber.constructAccessionNumber(accString);
-		AccessionNumberRange accNumberRange = accessionNumberRanges.get(accNumber);
-		accNumberRange.addSuffix(accNumber.getSuffix());
-		accNumberRange.generateSuffixGroups();
-		accessionNumberRepository.save(accNumberRange);
+		updateAccessionNumber(accNumber);
+	}
+
+	public ConcurrentSkipListMap<AccessionNumber, AccessionNumberRange> getAccessionNumberRanges() {
+		return accessionNumberRanges;
 	}
 }

@@ -1,8 +1,11 @@
 package com.ebi.task;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,50 +50,42 @@ public class AccessionNumberRangeTests {
 	@Before
 	public void setUp() {
 		// accessionNumberLoader.init();
+		deleteAccessionNumbers();
 	}
 
-	public static void main(String[] args) {
-		AccessionNumberRangeTests a = new AccessionNumberRangeTests();
-		// ArrayList<String[]> t = a.tests();
-		// System.out.println(t);
+	public void deleteAccessionNumbers() {
+		accessionNumberLoader.getAccessionNumberRanges().clear();
 	}
 
 	@Test
 	public void tests() {
-		Character ch = 'A';
-		ArrayList<String[]> array = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
-			String ch1[] = serialNumbers(5, i, ch, i);
-			array.add(ch1);
-			System.out.println(String.join(",", ch1));
-			accessionNumberLoader.update(String.join(",", ch1));
-			accessServiceUsingRestTemplate();
-			for (String acc : ch1) {
-				AccessionNumber accNumber = AccessionNumber.constructAccessionNumber(acc);
-				accessionNumberLoader.deleteAccessionNumber(accNumber);
-			}
+		HashMap<String, String> map = new HashMap<>();
+		map.put("A0,A1,A2,A3,A4,A5", "A0-A5");
+		map.put("A0,A2,A3,A4,A5,A6", "A0,A2-A6");
+		map.put("A0,A1,A3,A4,A5,A6", "A0-A1,A3-A6");
+		map.put("A0,A1,A2,A4,A5,A6", "A0-A2,A4-A6");
+		map.put("A0,A1,A2,A3,A4,A6", "A0-A4,A6");
+		map.put("A0,A1,A3,A4,A5,A7", "A0-A1,A3-A5,A7");
+		for (String key : map.keySet()) {
+			String[] output = accessServiceUsingRestTemplate();
+			accessionNumberLoader.update(key);
+			AccessionNumber anr = AccessionNumber.constructAccessionNumber("A0");
+			TreeSet<String> ts = accessionNumberLoader.getAccessionNumberRanges().get(anr).getSuffixGroups();
+			output = ts.toArray(new String[ts.size()]);
+			String value = map.get(key);
+			String[] values = value.split(",");
+			assertArrayEquals(values, output);
+			deleteAccessionNumbers();
 		}
-		// return array;
+
 	}
 
-	public void accessServiceUsingRestTemplate() {
-		URI uri = URI.create(String.format(SERVICE_URI + "accessionGroups", port));
+	public String[] accessServiceUsingRestTemplate() {
+		URI uri = URI.create(String.format(SERVICE_URI + "accessionGroups", "8080"));
 		ResponseEntity<String[]> output = restTemplate.getForEntity(uri, String[].class);
 		String[] finalOutput = output.getBody();
 		Arrays.asList(finalOutput).stream().forEach(n -> System.out.println(n));
-	}
-
-	public String[] serialNumbers(int count, int skip, Character prefix, int iter) {
-		String[] ch = new String[count];
-		boolean skipped = false;
-		for (int i = 0; i < count; i++) {
-			if (iter != 0 && (i == skip || skipped == true)) {
-				skipped = true;
-				ch[i] = prefix + "" + (i + 1);
-			} else
-				ch[i] = prefix + "" + i;
-		}
-		return ch;
+		return finalOutput;
 	}
 
 }
