@@ -14,6 +14,10 @@ Press **Green button** in the above to get the accession groups as seen in the s
 
 ![first screen accession Groups](https://github.com/veerarao80/task_00971/blob/master/images/accessionGroups.png)
 
+json accession groups can be accessed from http://localhost:8080/accessionGroups
+
+![json result for accession groups](https://github.com/veerarao80/task_00971/blob/master/images/accessionGroup_results.png)
+
 post / delete can be done by pressing the **yellow button** and entering the details in the *dialog box* in the following format, as shown in the image below.
 
 {
@@ -25,8 +29,6 @@ or through REST shell or curl -X POST -H 'application/hal+json;charset=UTF-8' -d
 
 ![post screen](https://github.com/veerarao80/task_00971/blob/master/images/post_or_delete.png)
 
-json accession groups can be accessed from http://localhost:8080/accessionGroups
 
-![json result for accession groups](https://github.com/veerarao80/task_00971/blob/master/images/accessionGroup_results.png)
 
 
