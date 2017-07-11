@@ -15,8 +15,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Component
-@NoArgsConstructor
-@Data
 class AccessionNumberRange {
 
 	private @Id @GeneratedValue Long id;

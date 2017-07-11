@@ -67,8 +67,9 @@ public class AccessionNumberLoader {
 			accessionNumberRepository.save(accNumberRange);
 		else {
 			accessionNumberRanges.remove(accNumber);
-			accessionNumberRepository.delete(accNumberRange);
-			accNumberRange = null;
+			accessionNumberRepository.delete(accNumberRange.getId());
+			accessionNumberRepository.exists(accNumberRange.getId());
+			accessionNumberRepository.findOne(accNumberRange.getId());
 		}
 		return accNumberRange;
 	}
