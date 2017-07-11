@@ -101,11 +101,7 @@ public class EbiApplicationIntegrationTests {
 	@Test
 	public void mockTests() {
 		
-		/*mockMvc.perform(get("/accessionNumberRanges" + this.bookmarkList.get(0).getId())).andExpect(status().isOk())
-				.andExpect(content().contentType(contentType))
-				.andExpect(jsonPath("$.id", is(this.bookmarkList.get(0).getId().intValue())))
-				.andExpect(jsonPath("$.uri", is("http://bookmark.com/1/" + userName)))
-				.andExpect(jsonPath("$.description", is("A description")));*/
+		
 	}
 
 }
